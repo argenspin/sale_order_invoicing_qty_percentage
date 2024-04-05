@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models,Command
+from odoo.exceptions import UserError
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
@@ -21,4 +22,4 @@ class SaleAdvancePaymentInv(models.TransientModel):
         if self.advance_payment_method == "qty_percentage":
             self = self.with_context(qty_percentage=self.qty_percentage)
             self.advance_payment_method = "delivered"
-        return super().create_invoices()
+        return super(SaleAdvancePaymentInv,self).create_invoices()
